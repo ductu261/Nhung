@@ -12,6 +12,9 @@ int main(int argc, char *argv[]) {
         // Liên tục đọc ký tự và chuyển thành in thường
         while ((c = getchar()) != EOF) {
             putchar(tolower(c));
+
+
+            
         }
         
     } else if (strstr(argv[0], "upper") != NULL) {
