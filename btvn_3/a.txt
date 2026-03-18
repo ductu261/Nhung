@@ -1,0 +1,40 @@
+Dong 1: Xin chao Viet Nam
+Dong 2: Hom nay troi dep
+Dong 3: Lap trinh C rat thu vi
+Dong 4: Bai tap trong sach K&R
+Dong 5: Dang test chuong trinh print file
+Dong 6: Day la mot dong van ban
+Dong 7: Hoc lap trinh can kien nhan
+Dong 8: Thuc hanh rat quan trong
+Dong 9: Neu sai thi sua lai
+Dong 10: Tiep tuc viet code
+Dong 11: Moi dong la mot test
+Dong 12: Chuong trinh dang doc file
+Dong 13: fgets se doc tung dong
+Dong 14: printf in ra man hinh
+Dong 15: C la ngon ngu rat manh
+Dong 16: Nhung cung rat nguy hiem
+Dong 17: Can quan ly bo nho
+Dong 18: Su dung pointer can than
+Dong 19: Sap het trang thu nhat
+Dong 20: Day la dong cuoi trang 1
+Dong 21: Bat dau trang thu hai
+Dong 22: Chuong trinh se in title moi
+Dong 23: Page number tang len
+Dong 24: Van dang doc file
+Dong 25: Noi dung van ban tiep tuc
+Dong 26: Day chi la du lieu test
+Dong 27: Khong co y nghia dac biet
+Dong 28: Nhung rat huu ich khi test
+Dong 29: Kiem tra page break
+Dong 30: Neu code dung se sang trang
+Dong 31: fgets van tiep tuc doc
+Dong 32: Cho den khi EOF
+Dong 33: EOF la end of file
+Dong 34: Gan het file roi
+Dong 35: Con mot vai dong nua
+Dong 36: Chuong trinh sap ket thuc
+Dong 37: Dong nay de tang so dong
+Dong 38: Dong nay cung vay
+Dong 39: Gan het that roi
+Dong 40: Dong cuoi cung cua file
