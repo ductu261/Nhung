@@ -1,4 +1,4 @@
-```markdown
+
 # Hướng dẫn sử dụng Git cơ bản từ Terminal
 
 Tài liệu này tổng hợp các lệnh Git thường dùng để quản lý source code qua terminal, từ việc thiết lập ban đầu, liên kết repository cho đến các thao tác push/pull hàng ngày. 
