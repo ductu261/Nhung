@@ -1,15 +1,39 @@
-// Viết một chương trình đếm số khoảng trắng, tab và dấu xuống dòng.
+/*******************************************************************************
+ * Description  : Viết một chương trình đếm số khoảng trắng, tab và ký tự xuống 
+ * dòng.
+ ******************************************************************************/
 #include <stdio.h>
 
-int main() {
-    int c;
-    int blanks = 0, tabs = 0, newlines = 0;
+#define CHAR_BLANK   ' '
+#define CHAR_TAB     '\t'
+#define CHAR_NEWLINE '\n'
 
-    while ((c = getchar()) != 'q') {
-        if (c == ' ') ++blanks;
-        if (c == '\t') ++tabs;
-        if (c == '\n') ++newlines;
+int main(void)
+{
+    int current_char;
+    int blank_count   = 0;
+    int tab_count     = 0;
+    int newline_count = 0;
+
+    // Lặp qua đầu vào chuẩn cho đến khi kết thúc file
+    while ((current_char = getchar()) != EOF)
+    {
+        if (current_char == CHAR_BLANK)
+        {
+            blank_count++;
+        }
+        else if (current_char == CHAR_TAB)
+        {
+            tab_count++;
+        }
+        else if (current_char == CHAR_NEWLINE)
+        {
+            newline_count++;
+        }
     }
-    printf("Blanks: %d, Tabs: %d, Newlines: %d\n", blanks, tabs, newlines);
+
+    printf("Khoang trang: %d, Tab: %d, Xuong dong: %d\n", 
+           blank_count, tab_count, newline_count);
+
     return 0;
 }

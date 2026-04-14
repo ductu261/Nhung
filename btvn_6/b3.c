@@ -1,67 +1,84 @@
+/*******************************************************************************
+ * Description  : Viết chương trình expr đánh giá biểu thức ký pháp Ba Lan ngược 
+ * từ command line, nơi mỗi toán tử hoặc toán hạng là một đối số riêng 
+ * biệt. Ví dụ: expr 2 3 4 + * tính 2 * (3 + 4)[cite: 182, 183, 184, 185].
+ ******************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
 
-#define MAXVAL 100
+#define MAX_STACK 100
 
-int sp = 0;          // Vị trí đỉnh ngăn xếp
-double val[MAXVAL];  // Mảng chứa giá trị ngăn xếp
+int stack[MAX_STACK];
+int sp = 0; // Con trỏ ngăn xếp
 
-void push(double f) {
-    if (sp < MAXVAL)
-        val[sp++] = f;
-    else
-        printf("Loi: Ngan xep day, khong the push %g\n", f);
-}
-
-double pop(void) {
-    if (sp > 0)
-        return val[--sp];
-    else {
-        printf("Loi: Ngan xep trong\n");
-        return 0.0;
+void push(int val) 
+{
+    if (sp < MAX_STACK) 
+    {
+        stack[sp++] = val;
+    } 
+    else 
+    {
+        printf("Loi: Ngan xep da day\n");
     }
 }
 
-int main(int argc, char *argv[]) {
-    double op2;
+int pop(void) 
+{
+    if (sp > 0) 
+    {
+        return stack[--sp];
+    } 
+    printf("Loi: Ngan xep dang trong\n");
+    return 0;
+}
 
-    // Bỏ qua tên chương trình (argv[0]), bắt đầu từ argv[1]
-    while (--argc > 0) {
-        argv++;
-        char *s = *argv;
+int main(int argc, char *argv[]) 
+{
+    int i;
+    int op2;
 
-        // Nếu là số (bao gồm cả số âm)
-        if (isdigit(s[0]) || (s[0] == '-' && isdigit(s[1]))) {
-            push(atof(s));
-        } else {
-            // Nếu là toán tử
-            switch (s[0]) {
-                case '+':
-                    push(pop() + pop());
-                    break;
-                case '*':
-                    push(pop() * pop());
-                    break;
-                case '-':
-                    op2 = pop(); // Phải pop số thứ 2 ra trước
-                    push(pop() - op2);
-                    break;
-                case '/':
-                    op2 = pop();
-                    if (op2 != 0.0)
-                        push(pop() / op2);
-                    else
-                        printf("Loi: Chia cho 0\n");
-                    break;
-                default:
-                    printf("Loi: Khong nhan dien duoc lenh %s\n", s);
-                    break;
+    // Lặp qua các đối số truyền vào từ dòng lệnh (bỏ qua argv[0])
+    for (i = 1; i < argc; i++) 
+    {
+        // Kiểm tra xem đối số là toán tử hay toán hạng
+        if (argv[i][0] == '+' && argv[i][1] == '\0') 
+        {
+            push(pop() + pop());
+        } 
+        else if (argv[i][0] == '*' && argv[i][1] == '\0') 
+        {
+            push(pop() * pop());
+        } 
+        else if (argv[i][0] == '-' && argv[i][1] == '\0') 
+        {
+            op2 = pop();
+            push(pop() - op2);
+        } 
+        else if (argv[i][0] == '/' && argv[i][1] == '\0') 
+        {
+            op2 = pop();
+            if (op2 != 0) 
+            {
+                push(pop() / op2);
+            } 
+            else 
+            {
+                printf("Loi: Chia cho 0\n");
             }
+        } 
+        else 
+        {
+            // Nếu là số, chuyển từ chuỗi sang số nguyên và đẩy vào ngăn xếp
+            push(atoi(argv[i]));
         }
     }
-    
-    // In kết quả cuối cùng trên ngăn xếp
-    printf("%.8g\n", pop());
+
+    // In kết quả cuối cùng nằm ở đỉnh ngăn xếp
+    if (sp > 0) 
+    {
+        printf("Ket qua: %d\n", pop());
+    }
+
     return 0;
 }

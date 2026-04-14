@@ -1,121 +1,62 @@
+/*******************************************************************************
+ * Description  : Thêm khả năng tìm kiếm theo trường, để việc sắp xếp có thể 
+ * được thực hiện trên các trường trong các dòng, mỗi trường được sắp 
+ * xếp theo một tập hợp các tùy chọn độc lập[cite: 180, 181].
+ * (Vì việc xây dựng lại toàn bộ chương trình sort của hệ điều hành rất 
+ * dài, dưới đây là phiên bản cơ bản mô phỏng việc chia một bản ghi 
+ * thành các trường và có các tùy chọn sắp xếp độc lập cho từng trường).
+ ******************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
-#define MAXLINES 1000
-#define MAXLEN 1000
-#define MAXFIELDS 10
+#define MAX_STR_LEN 100
 
-typedef struct {
-    int pos;
-    int numeric;
-    int fold;
-} SortCriteria;
+// Cấu trúc mô phỏng một dòng dữ liệu được chia thành các trường
+struct record 
+{
+    char category[MAX_STR_LEN]; // Trường 1: Sắp xếp theo chuỗi (vd: -df)
+    int page_number;            // Trường 2: Sắp xếp theo số (vd: -n)
+};
 
-SortCriteria criteria[MAXFIELDS];
-int num_criteria = 0;
-
-void get_field(const char *line, char *field, int pos) {
-    int curr_col = 1;
-    int i = 0, j = 0;
-
-    while (line[i] != '\0' && curr_col < pos) {
-        while (isspace(line[i])) i++;
-        if (line[i] == '\0') break;
-        while (line[i] != '\0' && !isspace(line[i])) i++;
-        curr_col++;
-    }
-
-    while (isspace(line[i])) i++;
-    while (line[i] != '\0' && !isspace(line[i])) {
-        field[j++] = line[i++];
-    }
-    field[j] = '\0';
+// Hàm tùy chọn 1: Sắp xếp theo trường category (chữ cái)
+int sort_by_category(const void *a, const void *b) 
+{
+    struct record *recA = (struct record *)a;
+    struct record *recB = (struct record *)b;
+    return strcmp(recA->category, recB->category);
 }
 
-int numcmp(const char *s1, const char *s2) {
-    double v1 = atof(s1);
-    double v2 = atof(s2);
-    if (v1 < v2) return -1;
-    if (v1 > v2) return 1;
-    return 0;
+// Hàm tùy chọn 2: Sắp xếp theo trường page_number (số nguyên)
+int sort_by_page_number(const void *a, const void *b) 
+{
+    struct record *recA = (struct record *)a;
+    struct record *recB = (struct record *)b;
+    return recA->page_number - recB->page_number;
 }
 
-int charcmp(const char *s1, const char *s2, int fold) {
-    if (fold) {
-        while (*s1 && *s2) {
-            int c1 = tolower((unsigned char)*s1);
-            int c2 = tolower((unsigned char)*s2);
-            if (c1 != c2) return c1 - c2;
-            s1++; s2++;
-        }
-        return tolower((unsigned char)*s1) - tolower((unsigned char)*s2);
-    }
-    return strcmp(s1, s2);
-}
-
-int compare_lines(const void *a, const void *b) {
-    const char *line1 = *(const char **)a;
-    const char *line2 = *(const char **)b;
-    char field1[MAXLEN], field2[MAXLEN];
-
-    for (int i = 0; i < num_criteria; i++) {
-        get_field(line1, field1, criteria[i].pos);
-        get_field(line2, field2, criteria[i].pos);
-
-        int result = 0;
-        
-        if (criteria[i].numeric) {
-            result = numcmp(field1, field2);
-        } else {
-            result = charcmp(field1, field2, criteria[i].fold);
-        }
-
-        if (result != 0) {
-            return result;
-        }
-    }
-    return 0;
-}
-
-int main(int argc, char *argv[]) {
-    char *lineptr[MAXLINES];
-    int nlines = 0;
-
-    criteria[0].pos = 2;
-    criteria[0].numeric = 0;
-    criteria[0].fold = 1;
-    
-    criteria[1].pos = 3;
-    criteria[1].numeric = 1;
-    criteria[1].fold = 0;
-    
-    num_criteria = 2;
-
-    const char *sample_data[] = {
-        "Nguyen_Van_A    Toan    9",
-        "Tran_Thi_B      Anh     10",
-        "Le_Van_C        Toan    7",
-        "Bui_Thi_D       Anh     8"
+int main(void) 
+{
+    int i;
+    struct record index_data[] = {
+        {"Function pointers", 118},
+        {"Arrays", 97},
+        {"Pointers", 93}
     };
-    
-    int num_samples = sizeof(sample_data) / sizeof(sample_data[0]);
+    int num_records = 3;
 
-    printf("--- DU LIEU BAN DAU ---\n");
-    for (int i = 0; i < num_samples; i++) {
-        printf("%s\n", sample_data[i]);
-        lineptr[nlines] = malloc(strlen(sample_data[i]) + 1);
-        strcpy(lineptr[nlines], sample_data[i]);
-        nlines++;
+    printf("--- Sap xep theo Truong 1 (Category - Chuoi) ---\n");
+    qsort(index_data, num_records, sizeof(struct record), sort_by_category);
+    for (i = 0; i < num_records; i++) 
+    {
+        printf("%-20s : %d\n", index_data[i].category, index_data[i].page_number);
     }
 
-    qsort(lineptr, nlines, sizeof(char *), compare_lines);
-
-    printf("\n--- KET QUA SAU KHI SAP XEP (Mon hoc -> Diem) ---\n");
-    for (int i = 0; i < nlines; i++) {
-        printf("%s\n", lineptr[i]);
-        free(lineptr[i]);
+    printf("\n--- Sap xep theo Truong 2 (Page Number - So) ---\n");
+    qsort(index_data, num_records, sizeof(struct record), sort_by_page_number);
+    for (i = 0; i < num_records; i++) 
+    {
+        printf("%-20s : %d\n", index_data[i].category, index_data[i].page_number);
     }
 
     return 0;

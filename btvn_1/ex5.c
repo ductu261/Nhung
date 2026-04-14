@@ -1,18 +1,39 @@
-//Viết chương trình sao chép input ra output, thay thế mỗi tab bằng \t, mỗi backspace bằng \b, và mỗi backslash bằng \\. Việc này giúp các ký tự ẩn hiện rõ một cách không mơ hồ.
+/*******************************************************************************
+ * Description  : Viết một chương trình sao chép đầu vào ra đầu ra, thay thế mỗi 
+ * tab bằng \t, mỗi backspace bằng \b, và mỗi backslash bằng \\.
+ ******************************************************************************/
 #include <stdio.h>
 
-int main() {
-    int c;
-    while ((c = getchar()) != 'q') {
-        if (c == '\t') {
-            printf("\\t");
-        } else if (c == '\b') {
-            printf("\\b");
-        } else if (c == '\\') {
-            printf("\\\\");klkjwh
-        } else {
-            putchar(c);
+#define CHAR_TAB       '\t'
+#define CHAR_BACKSPACE '\b'
+#define CHAR_BACKSLASH '\\'
+
+int main(void)
+{
+    int current_char;
+
+    // Duyệt qua từng ký tự và chuyển đổi các ký tự điều khiển
+    while ((current_char = getchar()) != EOF)
+    {
+        switch (current_char)
+        {
+            case CHAR_TAB:
+                printf("\\t");
+                break;
+                
+            case CHAR_BACKSPACE:
+                printf("\\b");
+                break;
+                
+            case CHAR_BACKSLASH:
+                printf("\\\\");
+                break;
+                
+            default:
+                putchar(current_char);
+                break;
         }
     }
+
     return 0;
 }

@@ -1,21 +1,42 @@
-// Viết chương trình in ra tần suất của các ký tự khác nhau trong input
+/*******************************************************************************
+ * Description  : Viết một chương trình in ra biểu đồ tần suất của các ký tự 
+ * khác nhau trong đầu vào của nó.
+ ******************************************************************************/
 #include <stdio.h>
+#include <ctype.h>
 
-int main() {
-    int c;
-    int char_counts[128] = {0}; // Mảng đếm các ký tự ASCII
+#define ASCII_MAX_CHARS 128
+#define HISTOGRAM_BAR   '*'
 
-    while ((c = getchar()) != 'q') {
-        if (c >= 0 && c < 128) {
-            char_counts[c]++;
+int main(void)
+{
+    int current_char;
+    int char_frequencies[ASCII_MAX_CHARS] = {0};
+    int i, j;
+
+    // Thu thập tần suất xuất hiện của từng ký tự ASCII
+    while ((current_char = getchar()) != EOF)
+    {
+        if (current_char >= 0 && current_char < ASCII_MAX_CHARS)
+        {
+            char_frequencies[current_char]++;
         }
     }
 
-    printf("Character Frequencies:\n");
-    for (int i = 32; i < 126; ++i) { // Chỉ in các ký tự có thể hiển thị
-        if (char_counts[i] > 0) {
-            printf("'%c': %d\n", i, char_counts[i]);
+    // In biểu đồ ngang cho các ký tự có thể in được
+    for (i = 0; i < ASCII_MAX_CHARS; i++)
+    {
+        if ((char_frequencies[i] > 0) && isprint(i))
+        {
+            printf("'%c' | ", (char)i);
+            
+            for (j = 0; j < char_frequencies[i]; j++)
+            {
+                putchar(HISTOGRAM_BAR);
+            }
+            putchar('\n');
         }
     }
+
     return 0;
 }
