@@ -2,6 +2,14 @@
  * Description  : Viết một chương trình sao chép đầu vào ra đầu ra, thay thế mỗi 
  * chuỗi có một hoặc nhiều khoảng trắng bằng một khoảng trắng duy nhất.
  ******************************************************************************/
+/*******************************************************************************
+ * Phần lí thuyết liên quan: 
+    * - Thư viện nhập xuất chuẩn: stdio.h, sử dụng hàm getchar() để đọc từng ký tự từ đầu vào.
+    * - Vòng lặp while và kiến trúc rẽ nhánh if-else để phân loại và đếm các ký tự.
+    * - Toán tử quan hệ ( == , != ) và toán tử gán 
+    * - Preprocessor Macros: #define
+    * - Biến và kiểu dữ liệu
+ ******************************************************************************/
 #include <stdio.h>
 #include <stdbool.h>
 

@@ -2,6 +2,11 @@
  * Description  : Viết một chương trình xóa các khoảng trắng và tab ở cuối mỗi 
  * dòng đầu vào, và xóa hoàn toàn các dòng trống.
  ******************************************************************************/
+ /*******************************************************************************
+ * Phần lí thuyết liên quan: 
+   * - Chuỗi và mảng
+   * - Truyền tham chiếu
+ ******************************************************************************/
 #include <stdio.h>
 
 #define MAX_LINE_LENGTH 1024
