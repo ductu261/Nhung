@@ -4,6 +4,12 @@
  * tương đương bằng cách sử dụng vòng lặp while. Bạn chỉ cần sửa đổi 
  * hàm sample_geometric_rv().
  ******************************************************************************/
+ /*******************************************************************************
+ * Phần lí thuyết liên quan: 
+   * - Vòng lặp for, do-while và while
+   * - Random va ep kieu du lieu
+   * - Dinh dang dau ra 
+ ******************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 

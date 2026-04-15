@@ -4,6 +4,12 @@
  * (b) Cài đặt lại hàm insertion_sort() chứa vòng lặp chính của thuật toán 
  * bằng con trỏ thay vì chỉ mục mảng.
  ******************************************************************************/
+ /*******************************************************************************
+ * Phần lí thuyết liên quan: 
+   * - Tham số dòng lệnh 
+   * - Mang va con tro
+   * - Toan tu con tro
+ ******************************************************************************/
 #include <stdio.h>
 
 #define ARRAY_SIZE 5

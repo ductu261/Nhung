@@ -1,6 +1,7 @@
 /*******************************************************************************
  * Description  : Viết một chương trình so sánh hai file, in ra dòng đầu tiên 
- * nơi chúng khác nhau.
+ * nơi chúng khác nhau. Đã sửa lỗi hiển thị dính dòng khi file không có ký tự 
+ * xuống dòng ở cuối.
  ******************************************************************************/
 #include <stdio.h>
 #include <string.h>
@@ -16,7 +17,7 @@ int main(int argc, char *argv[])
     char *ptr1;
     char *ptr2;
 
-    // Yêu cầu phải có đủ tên 2 file truyền vào
+    // Yêu cầu đủ 2 file đầu vào
     if (argc != 3) 
     {
         printf("Su dung: %s <file1> <file2>\n", argv[0]);
@@ -44,24 +45,24 @@ int main(int argc, char *argv[])
         ptr1 = fgets(line1, MAX_LINE_LEN, file1);
         ptr2 = fgets(line2, MAX_LINE_LEN, file2);
 
-        // Phát hiện khác biệt khi cả 2 file đều còn dữ liệu
+        // Phát hiện khác biệt
         if ((ptr1 != NULL) && (ptr2 != NULL) && (strcmp(line1, line2) != 0)) 
         {
             printf("Khac biet tai dong:\n");
-            printf("%s: %s", argv[1], line1);
-            printf("%s: %s", argv[2], line2);
+            printf("%s: %s\n", argv[1], line1);
+            printf("%s: %s\n", argv[2], line2);
             break;
         }
-        // File 1 dài hơn File 2
         else if ((ptr1 != NULL) && (ptr2 == NULL)) 
         {
             printf("Khac biet: %s dai hon %s\n", argv[1], argv[2]);
+            printf("%s: %s\n", argv[1], line1);
             break;
         }
-        // File 2 dài hơn File 1
         else if ((ptr1 == NULL) && (ptr2 != NULL)) 
         {
             printf("Khac biet: %s dai hon %s\n", argv[2], argv[1]);
+            printf("%s: %s\n", argv[2], line2);
             break;
         }
     } while ((ptr1 != NULL) && (ptr2 != NULL));

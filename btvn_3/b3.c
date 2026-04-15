@@ -7,12 +7,12 @@
 
 #define LINES_PER_PAGE 50
 #define PAGE_BREAK_CHAR '\f'
-
+int page_count = 1;
 void print_file_with_pagination(FILE *file, char *filename) 
 {
     int current_char;
     int line_count = 0;
-    int page_count = 1;
+    
 
     // In tiêu đề trang đầu
     printf("%c\n--- File: %s | Trang: %d ---\n\n", PAGE_BREAK_CHAR, filename, page_count);
@@ -57,6 +57,7 @@ int main(int argc, char *argv[])
         {
             print_file_with_pagination(file_ptr, argv[i]);
             fclose(file_ptr);
+            page_count++;
         } 
         else 
         {
