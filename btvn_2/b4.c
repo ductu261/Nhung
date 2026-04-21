@@ -21,34 +21,32 @@ void reverse(char s[])
 void itob(int n, char s[], int b) 
 {
     int i = 0;
-    int sign = n;
-    int digit;
-
-    // Trích xuất từng chữ số theo cơ số b
-    do 
+    
+    // TRƯỜNG HỢP 1: Hệ 10 (Xử lý theo kiểu Toán học)
+    if (b == 10) 
     {
-        digit = n % b;
-        
-        if (digit < 0) 
+        int sign = n;
+        do 
         {
-            digit = -digit;
-        }
-        
-        // Xử lý các chữ số cho hệ cơ số lớn hơn 10 (vd: a-f)
-        if (digit <= 9) 
-        {
+            int digit = n % 10;
+            if (digit < 0) digit = -digit;
             s[i++] = digit + '0';
-        } 
-        else 
-        {
-            s[i++] = digit - 10 + 'a';
-        }
-    } while ((n /= b) != 0);
+        } while ((n /= 10) != 0);
 
-    // Thông thường dấu trừ chỉ áp dụng cho hệ thập phân
-    if (sign < 0 && b == 10) 
+        if (sign < 0) s[i++] = '-';
+    }
+    // TRƯỜNG HỢP 2: Các hệ cơ số khác (Xử lý theo kiểu Bit Bù 2)
+    else 
     {
-        s[i++] = '-';
+        unsigned int un = (unsigned int)n; 
+        do 
+        {
+            int digit = un % b;
+            if (digit <= 9) s[i++] = digit + '0';
+            else            s[i++] = digit - 10 + 'a';
+        } while ((un /= b) != 0);
+        
+        // Không thêm dấu trừ ở đây, vì biểu diễn bit tự mang ý nghĩa của nó
     }
     
     s[i] = '\0';
